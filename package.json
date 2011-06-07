@@ -1,0 +1,10 @@
+{ "name": "scrappy-do"
+, "description": "Dead-simple scrapper wrapper for node"
+, "version": "0.0.1"
+, "author": "Phillip Neumann <pneumann@gmail.com>"
+, "engines": { "node": "~0.4.4" }
+, "dependencies": { 
+    "http-agent": "*"
+   ,"jsdom": "*"
+  }
+}
