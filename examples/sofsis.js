@@ -9,11 +9,11 @@ var scrappy = scrappyDo.create({
   
 /* Set up the jobs, will be execute secuencially */
 //scrappy.get('/', 'body table tr:eq(3) tr td table tr:eq(3) a', function(res, data, $) {
-scrappy.get('/', 'body', function(res, data, $) {
-  data.title = res.children('h1').html();
-  data.slogan = res.children('h2').html();
-  data.descrition = res.children('h3').html();
-  data.contact = res.children('a').attr('href').split(':')[1];
+scrappy.get('/', function(data, $) {
+  data.title = $('h1').html();
+  data.slogan = $('h2').html();
+  data.descrition = $('h3').html();
+  data.contact = $('a').attr('href').split(':')[1];
 });
 
 /*

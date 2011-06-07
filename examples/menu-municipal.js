@@ -6,7 +6,10 @@ var scrappy = scrappyDo.create({
 });
   
 /* Set up the jobs, will be execute secuencially */
-scrappy.get('/', 'body table tr:eq(3) tr td table tr:eq(3) a', function(res, data, $) {
+scrappy.get('/', function(data, $) {
+
+  var res = $('body table tr:eq(3) tr td table tr:eq(3) a');
+
   data.menu = [];
   res.each(function(idx, el) {
     data.menu.push({

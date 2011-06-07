@@ -5,17 +5,12 @@ var scrappy = scrappyDo.create({
 });
   
 /* Set up the jobs, will be execute secuencially */
-scrappy.get('/', 'body', function(res, data, $) {
+scrappy.get('/', function(data, $) {
 
   data.slogan = $('h2').html();
   data.title = $('h1').html();
   data.when = $('p.date').html();
   data.counter = $('p.numbers').html();
-
-  //menu
-  var menus = res.children('.#menu > * a').map(function(el) {
-  	return {link: el.href, name: el.innerHTML};
-  });
 
   //keynoters
   data.keynoters = [];
@@ -32,8 +27,8 @@ scrappy.get('/', 'body', function(res, data, $) {
 
   //sponsors
   data.sponsors = [];
-  $('.grupo-sponsors > * a').each(function(idx, el) {
-    data.sponsors.push({name: el.title, link: el.href});
+  $('.grupo-sponsors > div > * > * > * > * a').children().each(function(idx, el) {
+    data.sponsors.push({name: el.parentNode.title, link: el.parentNode.href, image: data.base + '/' + el.src});
   });
 
   //twitter link
