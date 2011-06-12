@@ -16,7 +16,12 @@ scrappy.get('/', function(data, $) {
   data.keynoters = [];
   $('.allkeynoters').children().each(function(idx, el) { 
     var tmp = el.children; 
-    data.keynoters.push({name: tmp[1].innerHTML, image: tmp[0].children[0].src, desc: tmp[2].innerHTML});
+    data.keynoters.push({
+      name:    tmp[1].innerHTML,
+      twitter: tmp[2].innerHTML.split('@')[1],
+      image:   tmp[0].children[0].src, 
+      desc:    tmp[3].innerHTML
+    });
   });
 
   //prices
