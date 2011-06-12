@@ -1,4 +1,5 @@
-var scrappyDo = require('../lib/scrappy-do');
+var scrappyDo = require('../lib/scrappy-do')
+  , fs = require('fs');
 
 var scrappy = scrappyDo.create({
     base: 'www.startechconf.com'
@@ -13,10 +14,10 @@ scrappy.get('/', function(data, $) {
   data.counter = $('p.numbers').html();
 
   //keynoters
-  data.keynoters = [];
+  data.speakers = [];
   $('.allkeynoters').children().each(function(idx, el) { 
     var tmp = el.children; 
-    data.keynoters.push({
+    data.speakers.push({
       name:    tmp[1].innerHTML,
       twitter: tmp[2].innerHTML.split('@')[1],
       image:   tmp[0].children[0].src, 
@@ -42,7 +43,13 @@ scrappy.get('/', function(data, $) {
 });
 
 scrappy.on('end', function(data) {
-	console.log(data);
+	
+  Object.keys(data).forEach(function(k) {
+    fs.writeFile('data/'+k+'.json', JSON.stringify(data[k]), function(err) {
+      if (err) console.log(err.message);
+    });
+  });
+
 });
 
 scrappy.do();
