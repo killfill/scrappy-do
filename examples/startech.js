@@ -8,10 +8,14 @@ var scrappy = scrappyDo.create({
 /* Set up the jobs, will be execute secuencially */
 scrappy.get('/', function(data, $) {
 
-  data.slogan = $('h2').html();
-  data.title = $('h1').html();
-  data.when = $('p.date').html();
-  data.counter = $('p.numbers').html();
+  data.main = [{
+    slogan : $('h2').html(),
+    when : $('p.date').html().split('/')[0],
+    counter : $('p.numbers').html(),
+    twitter : 'startechconf',
+    desc: $('#resume').children(0).children(0)[1].innerHTML,
+    prices: []
+  }];
 
   //keynoters
   data.speakers = [];
@@ -19,26 +23,22 @@ scrappy.get('/', function(data, $) {
     var tmp = el.children; 
     data.speakers.push({
       name:    tmp[1].innerHTML,
-      twitter: tmp[2].innerHTML.split('@')[1],
-      image:   tmp[0].children[0].src, 
+      twitter: tmp[2].innerHTML.split('@')[1].split('<')[0],
+      image:   'http://' + data.base + '/' + tmp[0].src, 
       desc:    tmp[3].innerHTML
     });
   });
 
   //prices
-  data.prices = [];
   $('.price-numbers').each(function(idx, el) {
-    data.prices.push({type: this.children[1].innerHTML, price: this.children[0].innerHTML});
+    data.main[0].prices.push({type: this.children[1].innerHTML, price: this.children[0].innerHTML});
   });
 
   //sponsors
   data.sponsors = [];
   $('.grupo-sponsors > div > * > * > * > * a').children().each(function(idx, el) {
-    data.sponsors.push({name: el.parentNode.title, link: el.parentNode.href, image: data.base + '/' + el.src});
+    data.sponsors.push({name: el.parentNode.title, link: el.parentNode.href, image: 'http://' + data.base + '/' + el.src});
   });
-
-  //twitter link
-  data.twitter = $('.twitter_followus > a')[0].href;
 
 });
 
