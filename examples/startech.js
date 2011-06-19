@@ -5,15 +5,17 @@ var scrappy = scrappyDo.create({
     base: 'www.startechconf.com'
 });
   
-/* Set up the jobs, will be execute secuencially */
 scrappy.get('/', function(data, $) {
+
+  
 
   data.main = [{
     slogan : $('h2').html(),
-    when : $('p.date').html().split('/')[0],
+    when : $('p.when').html().split('/')[0],
+    where : $('p.where').html().split('<')[0].trim(),
     counter : $('p.numbers').html(),
     twitter : 'startechconf',
-    desc: $('#resume').children(0).children(0)[1].innerHTML,
+    desc: $('#resume').children(0).children(0)[2].innerHTML,
     prices: []
   }];
 
